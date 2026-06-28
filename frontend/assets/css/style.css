@@ -1,0 +1,48 @@
+/* frontend/assets/css/style.css */
+
+/* --- 變數定義 (Design System) --- */
+:root {
+    --bg-tertiary: #202225;  /* 最深 (伺服器列表) */
+    --bg-secondary: #2f3136; /* 次深 (頻道/成員列表) */
+    --bg-primary: #36393f;   /* 主要 (聊天區) */
+    --bg-input: #40444b;     /* 輸入框 */
+    
+    --text-normal: #dcddde;
+    --text-muted: #72767d;
+    --text-header: #ffffff;
+    
+    --accent: #5865f2;       /* Discord 藍紫 */
+    --accent-hover: #4752c4;
+    --success: #2ecc71;
+    --danger: #ed4245;
+    
+    --hover-bg: #393c43;     /* 列表項目的 Hover 色 */
+    --active-bg: #393c43;    /* 列表項目的 Active 色 */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- 全域設定 --- */
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-normal);
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    /* 注意：這裡不設定 display: flex，因為登入頁和主頁的排版方式完全不同 */
+}
+
+/* 捲軸美化 (Webkit only) */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: #2e3338;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #202225;
+    border-radius: 4px;
+}

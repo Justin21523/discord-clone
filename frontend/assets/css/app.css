@@ -1,0 +1,1431 @@
+/* frontend/assets/css/app.css */
+
+/* 主程式專屬 Body 設定：Grid 佈局 & 禁止捲動 */
+body {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* --- 1. 伺服器列表 (Guild Sidebar) --- */
+.guild-sidebar {
+    width: 72px;
+    background-color: var(--bg-tertiary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 12px;
+    overflow-y: auto;
+    flex-shrink: 0; /* 防止被擠壓 */
+}
+
+.guild-icon {
+    width: 48px;
+    height: 48px;
+    background-color: var(--bg-primary);
+    border-radius: 50%;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease-out; /* 滑順動畫 */
+    color: var(--text-normal);
+    font-size: 20px;
+    position: relative;
+    user-select: none;
+}
+
+.guild-icon:hover, .guild-icon.active {
+    border-radius: 35%; /* 變回圓角矩形 */
+    background-color: var(--accent);
+    color: white;
+}
+
+/* 特殊按鈕樣式 (例如新增伺服器) */
+.guild-icon.action-btn {
+    background: transparent;
+    border: 1px dashed var(--success);
+    color: var(--success);
+}
+.guild-icon.action-btn:hover {
+    border: none;
+    background-color: var(--success);
+    color: white;
+}
+
+.guild-separator {
+    width: 32px;
+    height: 2px;
+    background-color: var(--bg-secondary);
+    border-radius: 1px;
+    margin-bottom: 8px;
+}
+
+/* --- 2. 頻道列表 (Channel Sidebar) --- */
+.channel-sidebar {
+    width: 240px;
+    background-color: var(--bg-secondary);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.sidebar-header {
+    height: 48px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: var(--text-header);
+    box-shadow: 0 1px 0 rgba(4,4,5,0.2); /* 底部陰影 */
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.sidebar-header:hover {
+    background-color: rgba(255,255,255,0.05);
+}
+
+.channel-list {
+    flex: 1;
+    padding: 10px 8px;
+    overflow-y: auto;
+}
+
+.channel-item {
+    padding: 6px 8px;
+    margin-bottom: 2px;
+    border-radius: 4px;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.channel-item:hover {
+    background-color: var(--hover-bg);
+    color: var(--text-normal);
+}
+.channel-item.active {
+    background-color: var(--active-bg);
+    color: var(--text-header);
+}
+
+.channel-hash {
+    font-size: 20px;
+    margin-right: 6px;
+    color: var(--text-muted);
+}
+
+/* --- Category Styles --- */
+.channel-category {
+    margin-bottom: 16px;
+}
+
+.category-header {
+    display: flex;
+    align-items: center;
+    padding: 8px 8px;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.category-header:hover {
+    background-color: var(--hover-bg);
+}
+
+.category-toggle {
+    margin-right: 8px;
+    transition: transform 0.2s ease;
+    font-size: 10px;
+}
+
+.category-toggle.expanded {
+    transform: rotate(90deg);
+}
+
+.category-channels {
+    margin-left: 12px;
+    padding-left: 12px;
+    border-left: 1px solid var(--bg-tertiary);
+}
+
+.uncategorized-channels {
+    margin-top: 8px;
+}
+
+/* 底部使用者區塊 */
+.user-area {
+    height: 52px;
+    background-color: #292b2f; /* 比 secondary 再深一點 */
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    flex-shrink: 0;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--accent); /* 預設顏色 */
+    margin-right: 8px;
+    background-size: cover;
+}
+
+.user-info {
+    flex: 1;
+    overflow: hidden;
+}
+.user-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--text-header);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.user-discriminator {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.icon-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+.icon-btn:hover {
+    background-color: var(--hover-bg);
+    color: var(--text-normal);
+}
+
+/* --- 3. 聊天主區塊 (Chat Area) --- */
+.chat-area {
+    flex: 1;
+    background-color: var(--bg-primary);
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* 防止 Flex 子元素溢出 */
+}
+
+.chat-header {
+    height: 48px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1px 0 rgba(4,4,5,0.2);
+    color: var(--text-header);
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.messages-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 歡迎訊息區塊 */
+.welcome-message {
+    margin-top: auto;
+    margin-bottom: 24px;
+    padding-top: 24px;
+}
+.welcome-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--text-header);
+    margin: 0 0 8px 0;
+}
+.welcome-subtitle {
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.message-input-area {
+    padding: 0 16px 24px;
+    flex-shrink: 0;
+}
+
+.message-input {
+    width: 100%;
+    background-color: var(--bg-input);
+    border: none;
+    border-radius: 8px;
+    padding: 11px 16px;
+    color: var(--text-normal);
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box; /* 確保 padding 不撐大 */
+}
+
+/* --- 4. 成員列表 (Member Sidebar) --- */
+.member-sidebar {
+    width: 240px;
+    background-color: var(--bg-secondary);
+    display: none; /* RWD: 手機版隱藏 */
+    flex-direction: column;
+    overflow-y: auto;
+    flex-shrink: 0;
+    padding: 24px 8px 0 16px; /* 上右下左 */
+}
+
+/* RWD: 大螢幕才顯示 */
+@media (min-width: 1000px) {
+    .member-sidebar {
+        display: flex;
+    }
+}
+
+.member-category {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    padding: 0 8px;
+}
+
+.member-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+    margin-bottom: 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+.member-item:hover {
+    background-color: var(--hover-bg);
+    color: var(--text-normal);
+}
+
+.member-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 12px;
+    /* 背景色如果是動態的，由 JS 控制 inline style */
+}
+
+.member-name {
+    font-weight: 500;
+}
+
+/* --- 5. 彈出視窗 (Modal) --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* 半透明黑底 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* 確保在最上層 */
+}
+
+.modal-content {
+    background-color: var(--bg-primary);
+    width: 440px;
+    padding: 24px;
+    border-radius: 5px;
+    box-shadow: 0 0 0 1px rgba(32,34,37,.6), 0 2px 10px 0 rgba(0,0,0,.2);
+    animation: zoomIn 0.2s ease-out;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 24px;
+    background-color: var(--bg-secondary);
+    margin: 20px -24px -24px -24px; /* 貼齊邊緣 */
+    padding: 16px 24px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.btn-text {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-right: 16px;
+    font-weight: 500;
+}
+.btn-text:hover {
+    text-decoration: underline;
+}
+
+/* 讓 Modal 裡的 input 樣式稍微調整 */
+.modal-content input {
+    background-color: var(--bg-tertiary);
+    color: white;
+    border: 1px solid rgba(0,0,0,0.3);
+}
+
+/* ---  Bot 標籤 --- */
+.bot-tag {
+    background-color: #5865f2; /* Discord 藍 */
+    color: white;
+    font-size: 10px;
+    padding: 1px 4px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+    height: 15px;
+    line-height: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.bot-tag i {
+    margin-right: 2px;
+    font-size: 8px;
+}
+
+/* --- 下拉選單 --- */
+.guild-dropdown {
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    width: 220px;
+    background-color: #18191c;
+    border-radius: 4px;
+    padding: 6px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.24);
+    z-index: 100;
+}
+.dropdown-item {
+    padding: 8px;
+    border-radius: 2px;
+    color: var(--text-normal);
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.dropdown-item:hover { background-color: #5865f2; color: white; }
+.dropdown-item.danger { color: var(--danger); }
+.dropdown-item.danger:hover { background-color: var(--danger); color: white; }
+.dropdown-separator { height: 1px; background-color: rgba(255,255,255,0.06); margin: 4px 0; }
+
+
+/* --- 全螢幕設定層 --- */
+.settings-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-primary);
+    z-index: 2000;
+    display: flex;
+}
+
+.settings-sidebar {
+    width: 218px;
+    background-color: var(--bg-secondary);
+    padding: 60px 6px 60px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-tab {
+    padding: 6px 10px;
+    border-radius: 4px;
+    color: var(--text-muted);
+    cursor: pointer;
+    margin-bottom: 2px;
+    font-weight: 500;
+}
+.settings-tab:hover { background-color: var(--hover-bg); color: var(--text-normal); }
+.settings-tab.active { background-color: var(--hover-bg); color: var(--text-header); }
+.settings-tab.danger { color: var(--danger); }
+
+.settings-content {
+    flex: 1;
+    background-color: var(--bg-primary);
+    padding: 60px 40px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.settings-close-btn {
+    position: absolute;
+    top: 60px;
+    right: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+}
+.settings-close-btn i {
+    font-size: 18px;
+    border: 2px solid var(--text-muted);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 4px;
+}
+.settings-close-btn:hover { color: var(--text-normal); }
+.settings-close-btn:hover i { border-color: var(--text-normal); }
+
+/* --- Message Threading Styles --- */
+.message-container {
+    position: relative;
+}
+
+.message-content {
+    flex: 1;
+}
+
+.reply-preview {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-left: 2px solid var(--accent);
+    padding: 8px 12px;
+    margin: 4px 0 8px 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.reply-author {
+    font-weight: 600;
+    color: var(--text-normal);
+}
+
+.reply-content {
+    color: var(--text-normal);
+    margin-left: 8px;
+}
+
+.message-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.message-container:hover .message-actions {
+    opacity: 1;
+}
+
+.reply-button, .react-button, .pin-button, .star-button {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.reply-button:hover, .react-button:hover, .pin-button:hover, .star-button:hover {
+    background-color: var(--hover-bg);
+    color: var(--text-normal);
+}
+
+.pinned, .starred {
+    color: var(--accent) !important;
+}
+
+.starred {
+    color: gold !important;
+}
+
+/* --- Server Templates Styles --- */
+.templates-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--bg-tertiary);
+    margin-bottom: 20px;
+}
+
+.templates-tab {
+    padding: 10px 16px;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-muted);
+    border-bottom: 2px solid transparent;
+}
+
+.templates-tab.active {
+    color: var(--text-header);
+    border-bottom: 2px solid var(--accent);
+}
+
+.templates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.template-card {
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.template-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    background-color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    align-self: flex-start;
+    overflow: hidden;
+}
+
+.template-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.default-template-icon {
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+}
+
+.template-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.template-info h4 {
+    margin: 0 0 8px 0;
+    color: var(--text-header);
+    font-size: 16px;
+}
+
+.template-info p {
+    margin: 0 0 12px 0;
+    color: var(--text-muted);
+    font-size: 14px;
+    flex: 1;
+}
+
+.template-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.use-template-btn, .edit-template-btn, .delete-template-btn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.use-template-btn {
+    background-color: var(--accent);
+    color: white;
+}
+
+.edit-template-btn {
+    background-color: var(--bg-tertiary);
+    color: var(--text-normal);
+}
+
+.delete-template-btn {
+    background-color: var(--danger);
+    color: white;
+    margin-left: 8px;
+}
+
+.template-actions {
+    display: flex;
+    margin-top: 12px;
+}
+
+.no-templates, .template-loading, .error-message {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-muted);
+}
+
+/* --- Audit Logs Styles --- */
+.audit-logs-filters {
+    display: flex;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.audit-logs-list {
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.audit-logs-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    padding: 12px 16px;
+    background-color: var(--bg-tertiary);
+    font-weight: bold;
+    color: var(--text-header);
+    border-bottom: 1px solid var(--bg-tertiary);
+}
+
+.audit-log-entry {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--bg-tertiary);
+    color: var(--text-normal);
+}
+
+.audit-log-entry:nth-child(even) {
+    background-color: var(--bg-tertiary);
+}
+
+.audit-log-loading, .no-audit-logs {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-muted);
+}
+
+.audit-log-action {
+    font-weight: 500;
+    color: var(--accent);
+}
+
+.audit-log-user {
+    font-weight: 500;
+}
+
+.audit-log-target {
+    color: var(--text-muted);
+}
+
+.audit-log-reason {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.audit-log-time {
+    color: var(--text-muted);
+    font-size: 0.9em;
+}
+
+/* --- Voice Chat Styles --- */
+.voice-chat-panel {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.voice-chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--bg-tertiary);
+    background-color: var(--bg-tertiary);
+    border-radius: 8px 8px 0 0;
+}
+
+.voice-channel-info {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: var(--text-header);
+}
+
+.voice-channel-info i {
+    margin-right: 8px;
+    color: var(--success);
+}
+
+.voice-participants-list {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 300px;
+    padding: 8px 0;
+}
+
+.voice-participant {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    transition: background-color 0.2s;
+}
+
+.voice-participant:hover {
+    background-color: var(--hover-bg);
+}
+
+.participant-avatar {
+    position: relative;
+    margin-right: 12px;
+}
+
+.avatar-initial {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.muted-indicator {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    background-color: var(--bg-secondary);
+    border-radius: 50%;
+    padding: 2px;
+    font-size: 10px;
+    color: var(--danger);
+}
+
+.participant-info {
+    flex: 1;
+}
+
+.participant-name {
+    font-weight: 500;
+    color: var(--text-normal);
+}
+
+.participant-status {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.participant-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.action-icon {
+    font-size: 12px;
+}
+
+.muted, .unmuted {
+    color: var(--text-muted);
+}
+
+.muted {
+    color: var(--danger);
+}
+
+.deafened, .undeafened {
+    color: var(--text-muted);
+}
+
+.deafened {
+    color: var(--danger);
+}
+
+.voice-controls {
+    display: flex;
+    justify-content: space-around;
+    padding: 12px;
+    border-top: 1px solid var(--bg-tertiary);
+    background-color: var(--bg-tertiary);
+    border-radius: 0 0 8px 8px;
+}
+
+.voice-control-btn {
+    background: none;
+    border: none;
+    color: var(--text-normal);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.voice-control-btn:hover {
+    background-color: var(--hover-bg);
+}
+
+.voice-control-btn.active {
+    background-color: var(--accent);
+    color: white;
+}
+
+.voice-participant-placeholder, .no-voice-participants {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.error-message {
+    text-align: center;
+    padding: 20px;
+    color: var(--danger);
+}
+
+/* --- Search Styles --- */
+.search-header {
+    margin-bottom: 16px;
+}
+
+.search-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-tertiary);
+    border-radius: 4px;
+    padding: 8px 12px;
+}
+
+.search-icon {
+    color: var(--text-muted);
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+.search-input-field {
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--text-normal);
+    font-size: 16px;
+    outline: none;
+    padding: 4px 0;
+}
+
+.search-input-field::placeholder {
+    color: var(--text-muted);
+}
+
+.close-search-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px;
+    margin-left: 8px;
+}
+
+.close-search-btn:hover {
+    color: var(--text-normal);
+}
+
+.search-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding: 12px;
+    background-color: var(--bg-tertiary);
+    border-radius: 4px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 120px;
+}
+
+.filter-group label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.search-results {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.search-instructions {
+    padding: 20px;
+    color: var(--text-muted);
+}
+
+.search-instructions h3 {
+    margin: 0 0 12px 0;
+    color: var(--text-header);
+}
+
+.search-instructions ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.search-instructions li {
+    margin-bottom: 8px;
+}
+
+.search-results-count {
+    padding: 8px 12px;
+    color: var(--text-muted);
+    font-size: 14px;
+    border-bottom: 1px solid var(--bg-tertiary);
+}
+
+.search-result-item {
+    padding: 12px;
+    border-bottom: 1px solid var(--bg-tertiary);
+    transition: background-color 0.2s;
+}
+
+.search-result-item:hover {
+    background-color: var(--hover-bg);
+}
+
+.result-header {
+    display: flex;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.result-author {
+    font-weight: 500;
+    color: var(--text-normal);
+    margin-right: 8px;
+}
+
+.result-channel {
+    color: var(--text-muted);
+    margin-right: 8px;
+}
+
+.result-time {
+    color: var(--text-muted);
+    margin-left: auto;
+}
+
+.result-content {
+    color: var(--text-normal);
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.highlight {
+    background-color: rgba(255, 255, 0, 0.3);
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+.result-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.jump-to-message-btn {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.jump-to-message-btn:hover {
+    background-color: #4752c4;
+}
+
+.no-results {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-muted);
+}
+
+.search-error {
+    text-align: center;
+    padding: 20px;
+    color: var(--danger);
+}
+
+/* --- Header Icon Button --- */
+.header-icon-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 3px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.header-icon-btn:hover {
+    background-color: var(--hover-bg);
+    color: var(--text-normal);
+}
+
+/* --- Reactions Styles --- */
+.reactions-picker {
+    position: absolute;
+    z-index: 1000;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.reactions-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.reaction-emoji-btn {
+    background: var(--bg-tertiary);
+    border: none;
+    border-radius: 6px;
+    padding: 6px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reaction-emoji-btn:hover {
+    background-color: var(--hover-bg);
+}
+
+.custom-emoji-btn {
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.reaction-badge {
+    display: flex;
+    align-items: center;
+    padding: 2px 6px;
+    border-radius: 12px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--bg-tertiary);
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+}
+
+.reaction-badge:hover {
+    background: var(--hover-bg);
+    border-color: var(--accent);
+}
+
+.add-reaction-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 3px;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.add-reaction-btn:hover {
+    background-color: var(--hover-bg);
+    color: var(--text-normal);
+}
+
+/* --- File Upload Styles --- */
+.file-drop-zone {
+    border: 2px dashed var(--bg-tertiary);
+    border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    background-color: var(--bg-secondary);
+}
+
+.file-drop-zone:hover, .file-drop-zone.dragover {
+    border-color: var(--accent);
+    background-color: rgba(88, 101, 242, 0.05);
+}
+
+.file-drop-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.file-preview-container {
+    margin-top: 20px;
+}
+
+.file-preview {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background-color: var(--bg-tertiary);
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.remove-file-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 3px;
+}
+
+.remove-file-btn:hover {
+    background-color: var(--danger);
+    color: white;
+}
+
+.file-upload-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.attach-file-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 3px;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.attach-file-btn:hover {
+    background-color: var(--hover-bg);
+    color: var(--text-normal);
+}
+
+.presence-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border: 2px solid var(--bg-primary);
+    z-index: 1;
+}
+
+/* --- Role Management Styles --- */
+.role-management-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--bg-tertiary);
+    margin-bottom: 20px;
+}
+
+.role-management-tab {
+    padding: 10px 16px;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-muted);
+    border-bottom: 2px solid transparent;
+}
+
+.role-management-tab.active {
+    color: var(--text-header);
+    border-bottom: 2px solid var(--accent);
+}
+
+.role-card {
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+.role-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.role-color-preview {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.role-info {
+    flex: 1;
+}
+
+.role-info h4 {
+    margin: 0 0 4px 0;
+    color: var(--text-header);
+}
+
+.role-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.role-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-role-btn, .delete-role-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.edit-role-btn {
+    background-color: var(--bg-tertiary);
+    color: var(--text-normal);
+}
+
+.delete-role-btn {
+    background-color: var(--danger);
+    color: white;
+}
+
+.role-permissions h5 {
+    margin: 0 0 8px 0;
+    color: var(--text-header);
+    font-size: 14px;
+}
+
+.permission-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.permission-tag {
+    background-color: var(--bg-tertiary);
+    color: var(--text-normal);
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+.permission-tag.admin {
+    background-color: var(--danger);
+    color: white;
+}
+
+.permission-tag.none {
+    background-color: var(--bg-tertiary);
+    color: var(--text-muted);
+}
+
+.permissions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.permission-item {
+    background-color: var(--bg-tertiary);
+    padding: 12px;
+    border-radius: 6px;
+}
+
+.permission-header {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.permission-checkbox {
+    display: flex;
+    align-items: flex-start;
+}
+
+.permission-checkbox input[type="checkbox"] {
+    margin-right: 8px;
+    margin-top: 2px;
+}
+
+.permission-name {
+    font-weight: 500;
+    color: var(--text-header);
+}
+
+.permission-description {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-left: 24px;
+}
+
+.roles-loading, .no-roles {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-muted);
+}
+
+.error-message {
+    text-align: center;
+    padding: 20px;
+    color: var(--danger);
+}

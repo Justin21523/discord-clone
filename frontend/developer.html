@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Portal - Discord Clone</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/developer.css"> </head>
+<body>
+    <div class="dev-sidebar">
+        <div class="dev-header">
+            <i class="fas fa-code"></i> Developers
+        </div>
+        <div class="dev-menu-label">My Applications</div>
+        <div id="bot-list" class="dev-bot-list">
+            </div>
+        <button id="new-app-btn" class="new-app-btn">New Application</button>
+        
+        <div class="back-link" onclick="window.location.href='index.html'">
+            <i class="fas fa-arrow-left"></i> 返回 Discord
+        </div>
+    </div>
+
+    <div class="dev-content">
+        <div id="welcome-view" class="content-panel">
+            <h1>歡迎來到開發者中心</h1>
+            <p>選擇左側的機器人以開始管理，或是建立一個新的應用程式。</p>
+        </div>
+
+        <div id="bot-editor-view" class="content-panel" style="display: none;">
+            <div class="panel-header">
+                <h2 id="edit-bot-title">Bot Name</h2>
+                <button id="delete-bot-btn" class="btn-danger">刪除機器人</button>
+            </div>
+
+            <div class="section-box">
+                <h3>一般資訊</h3>
+                <div class="form-group">
+                    <label>應用程式名稱</label>
+                    <input type="text" id="edit-bot-name">
+                </div>
+                <div class="form-group">
+                    <label>頭像 URL (選填)</label>
+                    <input type="text" id="edit-bot-avatar" placeholder="https://example.com/image.png">
+                </div>
+                <button id="save-bot-btn" class="btn-primary" style="width: auto;">儲存變更</button>
+            </div>
+
+            <div class="section-box">
+                <h3>Token 管理</h3>
+                <p class="info-text">Token 是控制機器人的鑰匙，請勿洩漏給他人。</p>
+                
+                <div class="token-container">
+                    <div class="token-mask" id="token-mask">****************************************</div>
+                    <input type="text" id="token-input" class="token-input" readonly style="display: none;">
+                    <button id="copy-token-btn" class="btn-secondary" style="display: none;">複製</button>
+                </div>
+
+                <button id="regenerate-token-btn" class="btn-danger-outline" style="margin-top: 15px;">重設 Token (Regenerate)</button>
+                <p class="warning-text" style="margin-top: 10px;">注意：重設後，舊的 Token 將立即失效。</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="assets/js/developer.js"></script>
+</body>
+</html>

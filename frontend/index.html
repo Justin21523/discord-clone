@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Clone</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <nav id="guild-sidebar" class="guild-sidebar"></nav>
+
+    <div id="channel-sidebar" class="channel-sidebar"></div>
+
+    <main id="chat-area" class="chat-area"></main>
+
+    <aside id="member-sidebar" class="member-sidebar"></aside>
+    
+    <div id="create-guild-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3 style="margin-top: 0; color: white;">建立伺服器</h3>
+            <p style="color: var(--text-muted); font-size: 14px;">你的伺服器是大家聚會的地方。給它取個名字吧！</p>
+            
+            <div class="form-group">
+                <label style="color: var(--text-muted); font-size: 12px; font-weight: bold;">伺服器名稱</label>
+                <input type="text" id="guild-name-input" class="message-input" placeholder="我的超酷伺服器">
+            </div>
+
+            <div class="modal-footer">
+                <button id="cancel-create-btn" class="btn-text">取消</button>
+                <button id="confirm-create-btn" class="btn-primary" style="width: auto; padding: 10px 24px;">建立</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="bot-manager-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content" style="width: 500px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3 style="margin: 0; color: white;">開發者機器人管理</h3>
+                <button id="close-bot-modal" class="btn-text" style="margin: 0; font-size: 20px;">&times;</button>
+            </div>
+            
+            <div style="margin-bottom: 24px;">
+                <label style="color: var(--text-muted); font-size: 12px; font-weight: bold; display: block; margin-bottom: 8px;">我的機器人</label>
+                <div id="bot-list" style="background-color: var(--bg-tertiary); border-radius: 4px; padding: 8px; max-height: 200px; overflow-y: auto;">
+                    <div style="text-align: center; color: var(--text-muted); padding: 10px;">載入中...</div>
+                </div>
+            </div>
+
+            <div style="border-top: 1px solid var(--bg-tertiary); padding-top: 20px;">
+                <label style="color: var(--text-muted); font-size: 12px; font-weight: bold; display: block; margin-bottom: 8px;">建立新機器人</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="new-bot-name" class="message-input" placeholder="Bot 名稱 (例如: MusicBot)" style="flex: 1;">
+                    <button id="create-bot-btn" class="btn-primary" style="width: auto; padding: 0 20px;">建立</button>
+                </div>
+            </div>
+
+            <div id="token-display-area" style="display: none; margin-top: 20px; background-color: rgba(32,34,37,0.6); padding: 15px; border: 1px solid var(--success); border-radius: 4px;">
+                <p style="color: var(--success); margin: 0 0 8px 0; font-weight: bold;">✅ 機器人建立成功！</p>
+                <p style="color: var(--text-muted); font-size: 13px; margin: 0 0 8px 0;">這是唯一的 Token 顯示機會，請務必複製保存：</p>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="new-bot-token" class="message-input" readonly style="font-family: monospace; color: var(--accent);">
+                    <button id="copy-token-btn" class="btn-primary" style="width: auto;">複製</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="server-settings-layer" class="settings-layer" style="display: none;">
+        <div class="settings-sidebar">
+            <div style="padding: 0 10px 6px 10px; font-weight: bold; color: var(--text-muted); font-size: 12px; text-transform: uppercase;">
+                <span id="settings-guild-name">SERVER NAME</span>
+            </div>
+            <div class="settings-tab active" data-tab="overview">概觀</div>
+            <div class="settings-tab" data-tab="roles">身分組</div>
+            <div class="settings-tab" data-tab="members">成員</div>
+            <div class="separator"></div>
+            <div class="settings-tab danger" id="delete-guild-btn">刪除伺服器</div>
+        </div>
+
+        <div class="settings-content">
+            <div class="settings-close-btn" id="close-settings-btn">
+                <i class="fas fa-times"></i> ESC
+            </div>
+
+            <div id="tab-overview" class="tab-content">
+                <h2>伺服器概觀</h2>
+                <div class="form-group" style="max-width: 400px;">
+                    <label>伺服器名稱</label>
+                    <input type="text" id="edit-guild-name" class="message-input">
+                </div>
+                <div class="form-group" style="max-width: 400px;">
+                    <label>伺服器圖示 URL</label>
+                    <input type="text" id="edit-guild-icon" class="message-input">
+                </div>
+                <button id="save-guild-btn" class="btn-primary" style="width: auto;">儲存變更</button>
+            </div>
+
+            <div id="tab-roles" class="tab-content" style="display: none;">
+                <h2>身分組管理</h2>
+                <p>這裡將列出所有身分組與權限設定。</p>
+            </div>
+            
+            <div id="tab-members" class="tab-content" style="display: none;">
+                <h2>成員管理</h2>
+                <p>這裡將列出所有成員。</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
